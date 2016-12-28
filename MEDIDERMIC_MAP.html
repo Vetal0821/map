@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+// This example creates circles on the map, representing populations in North
+// America.
+
+// First, create an object containing LatLng and population for each city.
+      
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+var labelIndex = 0;
+      
+var citymap = {
+  
+  Stuttgart: {
+    center: {lat: 48.779, lng: 9.137},
+    population: 30000,
+  },
+  Reutlingen: {
+    center: {lat: 48.500165, lng: 9.2046663},
+    population: 350000
+  },
+  Badfriedrichshall: {
+    center: {lat: 49.2404913, lng: 9.1874713},
+    population: 20000
+  },
+  Bruchsal: {
+    center: {lat: 49.1299569, lng: 8.5288793},
+    population: 45000
+  },
+  
+  Fellbach: {
+    center: {lat: 48.81631, lng: 9.2726328},
+    population: 30000
+  },
+  
+  Heilbronn: {
+    center: {lat: 49.1512867, lng: 9.1032482},
+    population: 120000
+  },
+  
+  Weissach: {
+    center: {lat: 48.8412395, lng: 8.8837174},
+    population: 10000
+  },
+
+  Balingen: {
+    center: {lat: 48.277009, lng: 8.8564393},
+    population: 350000
+  }
+};
+
+var citymapfree = {
+Freiburg: {
+    center: {lat: 48.0058777, lng: 7.8378227},
+    population: 180000   
+  },
+  
+Hayingen: {
+            center: {lat: 48.2921212, lng: 9.4688712},
+            population: 180000,
+        },
+
+Gaildorf: {
+            center: {lat:49.0056907, lng: 9.7742261 },
+            population: 180000,
+        },
+Horb_am_Neckar: {
+            center: {lat:48.4452731, lng: 8.6754331},
+            population: 180000,
+        },
+Zaberfeld: {
+            center: {lat:49.0612801 , lng: 8.9082112 },
+            population: 180000,
+        },
+
+Mengen: {
+            center: {lat:48.0524754 , lng: 9.3350097},
+            population: 180000,
+        },
+
+Backnang: {
+            center: {lat:48.9481089, lng: 9.4323568},
+            population: 180000,
+        },
+
+Rottweil: {
+            center: {lat:48.1621261, lng: 8.6290133},
+            population: 180000,
+        },
+
+Bietigheim: {
+    center: {lat:48.9096575, lng: 8.2456464},
+    population: 180000,
+  },
+
+Singen: {
+    center: {lat: 47.7635223, lng: 8.8665998},
+    population: 350000
+  },
+
+Pfullendorf: {
+            center: {lat:47.9249135 , lng: 9.2492836},
+            population: 180000,
+        },
+
+Bad_Saulgau: {
+        center: {lat:48.0148694 , lng: 9.499835},
+        population: 180000,
+        },
+
+Bad_Waldsee: {
+        center: {lat:47.9219848, lng: 9.7522301},
+        population: 180000,
+        },
+
+Ehingen: {
+        center: {lat: 48.2922464, lng: 9.6601954},
+        population: 180000,
+        },
+
+Tuttlingen: {
+            center: {lat: 47.9823728, lng: 8.8179578},
+            population: 180000,
+        },
+
+Sinsheim: {
+            center: {lat: 49.2430893, lng: 8.8827906},
+            population: 180000,
+        },
+
+Baden_Baden: {
+            center: {lat: 48.763439, lng: 8.2316167},
+            population: 180000,
+        },
+
+Schwabisch_Hall: {
+        center: {lat: 49.1125137, lng: 9.7365018},
+        population: 180000,
+        },
+
+Memmingen: {
+            center: {lat: 47.9840383, lng: 10.1788513},
+            population: 180000,
+        },
+
+Pforzheim: {
+            center: {lat: 48.8830711, lng: 8.7020457},
+            population: 180000,
+        },
+
+Ludwigsburg: {
+            center: {lat: 48.8974015, lng: 9.1942783},
+            population: 180000,
+        },
+
+Heidelberg: {
+            center: {lat: 49.4014118, lng: 8.6831494},
+            population: 180000,
+        },
+
+Karlsruhe: {
+            center: {lat: 49.0120013, lng: 8.3968985},
+            population: 180000,
+        },
+
+Offenburg: {
+            center: {lat: 48.4736932, lng: 7.9471965},
+            population: 180000,
+        },
+
+Villingen_Schwenningen: {
+            center: {lat: 48.0597021, lng: 8.4574043},
+            population: 180000,
+        },
+
+Biberach_an_der_Rib: {
+        center: {lat: 48.0969208, lng: 9.7887568},
+        population: 180000,
+        },
+
+Beuron: {
+            center: {lat: 48.05038, lng: 8.9701141},
+            population: 180000,
+        },
+
+Bad_Wildbad: {
+        center: {lat: 48.7511091, lng: 8.5484361},
+        population: 180000,
+        },
+
+Achern: {
+            center: {lat: 48.6277832, lng: 8.0487457},
+            population: 180000,
+        },
+
+Jungnau: {
+            center: {lat: 48.1436567, lng: 9.1981114},
+            population: 180000,
+        },
+
+Bonndorf: {
+            center: {lat: 47.8160171, lng: 8.3350488},
+            population: 180000,
+        },
+Feldberg: {
+    center: {lat: 47.8607418, lng: 8.0360582},
+    population: 180000,
+  },
+Tubingen: {
+    center: {lat: 48.5222366, lng: 8.9777439},
+    population: 180000,
+  },
+
+Neudingen: {
+  center: {lat: 47.910915, lng: 8.5686005},
+  population: 180000,
+},
+
+Tuttlingen: {
+  center: {lat: 47.981761, lng: 8.8166629},
+  population: 180000,
+},
+
+Trossingen: {
+  center: {lat: 48.0754729, lng: 8.6329813},
+  population: 180000,
+},
+
+Riedlingen: {
+  center: {lat: 48.1595447, lng: 9.4701959},
+  population: 180000,
+},
+
+Laupheim: {
+  center: {lat: 48.2300227, lng: 9.8800367},
+  population: 180000,
+},
+
+Crailsheim: {
+            center: {lat: 49.13381, lng: 10.0633269},
+            population: 180000,
+        },
+
+Bad_Mergentheim: {
+            center: {lat: 49.458993, lng: 9.7097755},
+            population: 180000,
+        },
+
+Aalen: {
+            center: {lat: 48.841262, lng: 10.109437},
+            population: 180000,
+        },
+
+Ulm: {
+            center: {lat: 48.400164, lng: 9.9631562},
+            population: 180000,
+        },
+
+Kempten_Allgau: {
+            center: {lat: 47.7296501, lng: 10.3132832},
+            population: 180000,
+        },
+
+Ravensburg: {
+            center: {lat: 47.7782263, lng: 9.6086074},
+            population: 180000,
+        },
+
+Freudenstadt: {
+            center: {lat: 48.46498, lng: 8.416641},
+            population: 180000,
+        },
+
+Triberg: {
+            center: {lat: 48.1307653, lng: 8.2309316},
+            population: 180000,
+        },
+
+Furtwangen_im_Schwarzwald: {
+            center: {lat: 48.0496364, lng: 8.2018444},
+            population: 180000,
+        },
+
+Emmendingen: {
+            center: {lat: 48.1174883, lng: 7.8532956},
+            population: 180000,
+        },
+
+Freiburg_im_Breisgau: {
+            center: {lat: 47.9979445, lng: 7.8393105},
+            population: 180000,
+        },
+
+Bad_Krozingen: {
+            center: {lat: 47.9161475, lng: 7.6983061},
+            population: 180000,
+        },
+
+Schopfheim: {
+            center: {lat: 47.6521173, lng: 7.8276309},
+            population: 180000,
+        },
+
+Altensteig: {
+    center: {lat: 48.588675, lng: 8.602681},
+    population: 180000,
+  },
+
+Heidenheim_an_der_Brenz: {
+    center: {lat: 48.6905049, lng: 10.1574983},
+    population: 180000,
+  },
+
+Ballendorf: {
+    center: {lat: 48.5550865, lng: 10.0780132},
+    population: 180000,
+  },
+
+Waghausel: {
+    center: {lat: 49.2473342, lng: 8.5115904},
+    population: 180000,
+  },
+
+  Gorwihl: {
+            center: {lat: 47.642594, lng: 8.0747734},
+            population: 180000,
+        },
+
+
+
+WaldshutTiengen: {
+            center: {lat: 47.6332317, lng: 8.2684346},
+            population: 180000,
+        },
+
+Schramberg: {
+            center: {lat: 48.227764, lng: 8.3836829},
+            population: 180000,
+        },
+
+Ohringen: {
+    center: {lat: 49.2007129, lng: 9.5005214},
+    population: 180000,
+  },
+
+Schwabisch_Gmund: {
+    center: {lat: 48.7989794, lng: 9.8021658},
+    population: 180000,
+  },
+
+Schorndorf: {
+    center: {lat: 48.8010076, lng: 9.523186},
+    population: 180000,
+  },
+
+Goppingen: {
+    center: {lat: 48.7056875, lng: 9.6473061},
+    population: 180000,
+  },
+
+Wiesensteig: {
+    center: {lat: 48.5616121, lng: 9.6215204},
+    population: 180000,
+  },
+
+Sindelfingen: {
+    center: {lat: 48.7077111, lng: 9.0017399},
+    population: 180000,
+  },
+
+Aidlingen: {
+    center: {lat: 48.6790656, lng: 8.8936657},
+    population: 180000,
+  },
+
+Hausach: {
+    center: {lat: 48.2834671, lng: 8.1724391},
+    population: 180000,
+  },
+
+Gengenbach: {
+  center: {lat: 48.4079994, lng: 8.0088245},
+  population: 180000,
+},
+
+Seelbach: {
+    center: {lat: 48.3097069, lng: 7.939815},
+    population: 180000,
+  },
+
+};
+
+function initMap() {
+  // Create the map.
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8 ,
+    center: {lat: 48.617, lng: 9.17},
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+  
+  for (var city in citymapfree) {
+      var cityCircle = new google.maps.Circle({
+      strokeColor: '#229200',
+      strokeOpacity: 0.6,
+      strokeWeight: 2,
+      fillColor: '#229200',
+      fillOpacity: 0.35,
+      map: map,
+      center: citymapfree[city].center,
+      radius: Math.sqrt(citymapfree[city].population) * 21
+    });
+    
+        var marker = new google.maps.Marker({
+    position: citymapfree[city].center,
+    label:  labels[labelIndex++ % labels.length],
+    map: map,
+    
+  });
+  }
+  
+
+  
+  // Construct the circle for each value in citymap.
+  // Note: We scale the area of the circle based on the population.
+
+    for (var city in citymap) {
+    
+    var marker = new google.maps.Marker({
+    position: citymap[city].center,
+    
+    map: map,
+    
+  });
+    
+    // Add the circle for this city to the map.
+    var cityCircle = new google.maps.Circle({
+      strokeColor: '#520098',
+      strokeOpacity: 0.6,
+      strokeWeight: 2,
+      fillColor: '#520098',
+      fillOpacity: 0.35,
+      map: map,
+      center: citymap[city].center,
+      radius: Math.sqrt(citymap[city].population) * 30
+     
+    });
+	
+   
+  }
+  
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsolBGTmf93VTTcXyE5axYUSyvq6e4yCA&signed_in=true&callback=initMap"></script>
+  </body>
+</html>
